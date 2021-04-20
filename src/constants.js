@@ -15,8 +15,11 @@ const HttpCode = {
   UNAUTHORIZED: 401,
 };
 
+const NANO_ID_LENGTH = 6;
+
 module.exports = {
   DEFAULT_COMMAND,
+  NANO_ID_LENGTH,
   ExitCode,
   HttpCode,
 };
