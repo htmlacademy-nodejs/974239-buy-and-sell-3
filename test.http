@@ -1,0 +1,89 @@
+# offers
+
+# Список всех объявлений
+GET http://127.0.0.1:3000/api/offers HTTP/1.1
+
+###
+
+# Конкретное объявление
+GET http://127.0.0.1:3000/api/offers/dT0Q1S HTTP/1.1
+
+###
+
+# Создать объявление
+POST http://127.0.0.1:3000/api/offers HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "НОВОЕ ОБЪЯВЛЕНИЕ",
+    "picture": "item11.jpg",
+    "description": "Мое описание",
+    "type": "offer",
+    "sum": 12342,
+    "category": [
+      "Игры",
+      "Книги"
+    ]
+}
+
+###
+
+# Обновить объявление
+PUT http://127.0.0.1:3000/api/offers/dT0Q1S HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Я отредактировал это",
+    "picture": "item11.jpg",
+    "description": "Мое описание",
+    "type": "offer",
+    "sum": 12342,
+    "category": [
+      "Игры",
+      "Книги"
+    ]
+}
+
+###
+
+# Удалить объявление
+DELETE http://127.0.0.1:3000/api/offers/dT0Q1S HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Комменатрии объявления
+GET http://127.0.0.1:3000/api/offers/Z45Rv0/comments HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Удалить комменатрий объявления
+DELETE http://127.0.0.1:3000/api/offers/Z45Rv0/comments/RVBNk8 HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Добавить комменатрий объявления
+POST http://127.0.0.1:3000/api/offers/Z45Rv0/comments HTTP/1.1
+Content-Type: application/json
+
+{
+  "text": "Комменатрий создан!"
+}
+
+# search
+
+###
+
+# Поиск
+GET http://127.0.0.1:3000/api/search?query=Продаю HTTP/1.1
+Content-Type: application/json
+
+# categories
+
+###
+
+# Список категорий
+GET http://127.0.0.1:3000/api/categories HTTP/1.1
+Content-Type: application/json
