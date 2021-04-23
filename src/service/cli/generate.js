@@ -2,17 +2,19 @@
 
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
+const {nanoid} = require(`nanoid`);
 const {getRandomInt, pad, shuffle} = require(`../../utils`);
-const {ExitCode} = require(`../../constants`);
-
+const {ExitCode, NANO_ID_LENGTH} = require(`../../constants`);
 const DEFAULT_COUNT = 1;
 const MAX_DESCRIPTIONS_COUNT = 5;
+const MAX_COMMENTS_COUNT = 15;
 const MAX_ELEMENTS_COOUNT = 1000;
 
 const FILE_NAME = `mocks.json`;
 const TITLES_PATH = `data/titles.txt`;
 const DESCRIPTIONS_PATH = `data/descriptions.txt`;
 const CATEGORIES_PATH = `data/categories.txt`;
+const COMMENTS_PATH = `data/comments.txt`;
 
 const OfferType = {
   OFFER: `offer`,
@@ -39,8 +41,9 @@ const getSplitedFileContent = async (filePath) => {
   }
 };
 
-const generateOffers = ({count, titles, descriptions, categories}) =>
+const generateOffers = ({count, titles, descriptions, categories, comments}) =>
   new Array(count).fill({}).map(() => ({
+    id: nanoid(NANO_ID_LENGTH),
     title: titles[getRandomInt(0, titles.length - 1)],
     picture: `item${pad(
         getRandomInt(PictureNumber.MIN, PictureNumber.MAX)
@@ -53,6 +56,10 @@ const generateOffers = ({count, titles, descriptions, categories}) =>
     ],
     sum: getRandomInt(OfferCost.MIN, OfferCost.MAX),
     category: shuffle(categories).slice(0, getRandomInt(1, categories.length)),
+    comments: new Array(getRandomInt(0, MAX_COMMENTS_COUNT)).fill({}).map(() => ({
+      id: nanoid(NANO_ID_LENGTH),
+      text: shuffle(comments).slice(0, getRandomInt(1, comments.length)).join(` `)
+    }))
   }));
 
 module.exports = {
@@ -66,8 +73,9 @@ module.exports = {
     const titles = await getSplitedFileContent(TITLES_PATH);
     const descriptions = await getSplitedFileContent(DESCRIPTIONS_PATH);
     const categories = await getSplitedFileContent(CATEGORIES_PATH);
+    const comments = await getSplitedFileContent(COMMENTS_PATH);
 
-    const content = JSON.stringify(generateOffers({count, titles, descriptions, categories}));
+    const content = JSON.stringify(generateOffers({count, titles, descriptions, categories, comments}));
     try {
       await fs.writeFile(FILE_NAME, content);
       console.info(chalk.green(`Operation success. File created.`));
