@@ -6,7 +6,7 @@ GET http://127.0.0.1:3000/api/offers HTTP/1.1
 ###
 
 # Конкретное объявление
-GET http://127.0.0.1:3000/api/offers/dT0Q1S HTTP/1.1
+GET http://127.0.0.1:3000/api/offers/8pvGQK HTTP/1.1
 
 ###
 
@@ -24,6 +24,17 @@ Content-Type: application/json
       "Игры",
       "Книги"
     ]
+}
+
+###
+
+# Создать некорректное объявление
+POST http://127.0.0.1:3000/api/offers HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "НОВОЕ ОБЪЯВЛЕНИЕ",
+    "picture": "item11.jpg"
 }
 
 ###
@@ -47,7 +58,7 @@ Content-Type: application/json
 ###
 
 # Удалить объявление
-DELETE http://127.0.0.1:3000/api/offers/dT0Q1S HTTP/1.1
+DELETE http://127.0.0.1:3000/api/offers/8pvGQK HTTP/1.1
 Content-Type: application/json
 
 ###
