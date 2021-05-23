@@ -70,7 +70,7 @@ module.exports = (app, offersService, commentService) => {
 
     const comment = commentService.create(offer, req.body);
 
-    return res.status(HttpCode.OK)
+    return res.status(HttpCode.CREATED)
       .json(comment);
   });
 };

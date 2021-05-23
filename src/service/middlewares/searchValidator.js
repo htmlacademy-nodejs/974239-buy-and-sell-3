@@ -1,12 +1,12 @@
 "use strict";
 const {HttpCode} = require(`../../constants`);
 
-const offerKeys = [`category`, `description`, `picture`, `title`, `type`, `sum`];
+const queryKeys = [`query`];
 
 module.exports = (req, res, next) => {
-  const newOffer = req.body;
-  const keys = Object.keys(newOffer);
-  const keysExists = offerKeys.every((key) => keys.includes(key));
+  const keys = Object.keys(req.query);
+
+  const keysExists = queryKeys.every((key) => keys.includes(key)) && keys.every((key) => queryKeys.includes(key));
 
   if (!keysExists) {
     res.status(HttpCode.BAD_REQUEST)
